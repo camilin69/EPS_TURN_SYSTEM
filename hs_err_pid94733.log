@@ -1,0 +1,74 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007468fb889df2, pid=94733, tid=94791
+#
+# JRE version: Java(TM) SE Runtime Environment (22.0.1+8) (build 22.0.1+8-16)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (22.0.1+8-16, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, linux-amd64)
+# Problematic frame:
+# C  [libGLdispatch.so.0+0x40df2]
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport -p%p -s%s -c%c -d%d -P%P -u%u -g%g -- %E" (or dumping to /home/camilinpinwin/github_repositories/EPS_TURN_SYSTEM/core.94733)
+#
+# If you would like to submit a bug report, please visit:
+#   https://bugreport.java.com/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=localhost:46441 -XX:+ShowCodeDetailsInExceptionMessages --module-path=/home/camilinpinwin/github_repositories/EPS_TURN_SYSTEM/eps/target/classes:/home/camilinpinwin/.m2/repository/org/openjfx/javafx-controls/22.0.1/javafx-controls-22.0.1-linux.jar:/home/camilinpinwin/.m2/repository/org/openjfx/javafx-graphics/22.0.1/javafx-graphics-22.0.1-linux.jar:/home/camilinpinwin/.m2/repository/org/openjfx/javafx-base/22.0.1/javafx-base-22.0.1-linux.jar:/home/camilinpinwin/.m2/repository/org/openjfx/javafx-fxml/22.0.1/javafx-fxml-22.0.1-linux.jar:/home/camilinpinwin/.m2/repository/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar -Djdk.module.main=co.edu.uptc co.edu.uptc/co.edu.uptc.Runner
+
+Host: Intel(R) Core(TM) i3-6006U CPU @ 2.00GHz, 4 cores, 3G, Ubuntu 22.04.4 LTS
+Time: Sun Jul 14 18:11:04 2024 EDT elapsed time: 14.742328 seconds (0d 0h 0m 14s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000074692c286390):  JavaThread "QuantumRenderer-0" daemon [_thread_in_native, id=94791, stack(0x00007468fbac8000,0x00007468fbbc8000) (1024K)]
+
+Stack: [0x00007468fbac8000,0x00007468fbbc8000],  sp=0x00007468fbbc6260,  free space=1016k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libGLdispatch.so.0+0x40df2]
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  com.sun.prism.es2.X11GLContext.nMakeCurrent(JJ)V+0 javafx.graphics@22.0.1
+j  com.sun.prism.es2.X11GLContext.makeCurrent(Lcom/sun/prism/es2/GLDrawable;)V+8 javafx.graphics@22.0.1
+j  com.sun.prism.es2.ES2Context.makeCurrent(Lcom/sun/prism/es2/GLDrawable;)V+22 javafx.graphics@22.0.1
+j  com.sun.prism.es2.ES2SwapChain.present()Z+20 javafx.graphics@22.0.1
+j  com.sun.javafx.tk.quantum.PresentingPainter.run()V+451 javafx.graphics@22.0.1
+j  java.util.concurrent.Executors$RunnableAdapter.call()Ljava/lang/Object;+4 java.base@22.0.1
+j  java.util.concurrent.FutureTask.runAndReset()Z+44 java.base@22.0.1
+j  com.sun.javafx.tk.RenderJob.run()V+1 javafx.graphics@22.0.1
+j  java.util.concurrent.ThreadPoolExecutor.runWorker(Ljava/util/concurrent/ThreadPoolExecutor$Worker;)V+92 java.base@22.0.1
+j  java.util.concurrent.ThreadPoolExecutor$Worker.run()V+5 java.base@22.0.1
+j  com.sun.javafx.tk.quantum.QuantumRenderer$PipelineRunnable.run()V+8 javafx.graphics@22.0.1
+j  java.lang.Thread.runWith(Ljava/lang/Object;Ljava/lang/Runnable;)V+5 java.base@22.0.1
+j  java.lang.Thread.run()V+19 java.base@22.0.1
+v  ~StubRoutines::call_stub 0x000074691c137cc6
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 1 (SEGV_MAPERR), si_addr: 0x0000000000000018
+
+Registers:
+RAX=0x0000000000000000, RBX=0x000000003a9ae4de, RCX=0x0000000000000000, RDX=0x0000000000000001
+RSP=0x00007468fbbc6260, RBP=0x000074687ca6eb40, RSI=0x0000000000000001, RDI=0x0000000000000000
+R8 =0x0000000000000000, R9 =0x0000000000000000, R10=0x0000000000000007, R11=0x0000000000000007
+R12=0x0000000000000000, R13=0x0000000000000000, R14=0x000074687c0ef2c0, R15=0x00007468fb900180
+RIP=0x00007468fb889df2, EFLAGS=0x0000000000010202, CSGSFS=0x002b000000000033, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+
+Register to memory mapping:
+
+RAX=0x0 is null
+RBX=0x000000003a9ae4de is an unknown value
+RCX=0x0 is null
+RDX=0x0000000000000001 is an unknown value
+RSP=0x00007468fbbc6260 is pointing into the stack for thread: 0x000074692c286390
+RBP=0x000074687ca6eb40 points into unknown readable memory: 0x0000746f3a59d72e | 2e d7 59 3a 6f 74 00 00
+RSI=0x0000000000000001 is an unknown value
+RDI=0x0 is null
+R8 =0x0 is null
+R9 =0x0 is null
+R10=0x0000000000000007 is an unknown value
+R11=0x0000000000000007 is an unknown value
+R12=

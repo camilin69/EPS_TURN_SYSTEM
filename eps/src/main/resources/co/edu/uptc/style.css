@@ -1,0 +1,21 @@
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: #d77373;
+    -fx-pref-width: 7px; 
+}
+
+
+.scroll-pane .scroll-bar:horizontal {
+    -fx-background-color: #d77373;
+    -fx-pref-height: 7px; 
+}
+
+.scroll-pane .scroll-bar .increment-button,
+.scroll-pane .scroll-bar .decrement-button{
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-pref-width: 0; 
+    -fx-pref-height: 0; 
+    -fx-opacity: 0;
+    -fx-visibility: hidden;
+}

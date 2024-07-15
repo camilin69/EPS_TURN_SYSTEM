@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uptc.EpsView">
+   <children>
+      <AnchorPane prefHeight="30.0" prefWidth="600.0" style="-fx-border-color: gray;">
+         <children>
+            <Label layoutX="10.0" text="THE EPS" textFill="#41d025">
+               <font>
+                  <Font name="KacstOne Bold" size="16.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="indeque" layoutX="374.0" layoutY="3.0" prefHeight="20.0" prefWidth="222.0" promptText="IN DEQUE" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="170.0" prefHeight="230.0" prefWidth="602.0">
+         <children>
+            <AnchorPane fx:id="m1" prefHeight="215.0" prefWidth="200.0" style="-fx-background-color: #a9ffab; -fx-border-color: black;">
+               <children>
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="200.0" style="-fx-border-color: black;" text="Module 1" textAlignment="CENTER" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="m2" layoutX="200.0" prefHeight="215.0" prefWidth="200.0" style="-fx-background-color: #a9ffab; -fx-border-color: black;">
+               <children>
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="200.0" style="-fx-border-color: black;" text="Module 2" textAlignment="CENTER" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="m3" layoutX="400.0" prefHeight="215.0" prefWidth="200.0" style="-fx-background-color: #a9ffab; -fx-border-color: black;">
+               <children>
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="200.0" style="-fx-border-color: black;" text="Module 3" textAlignment="CENTER" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutY="215.0" prefHeight="15.0" prefWidth="600.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a9ffab" height="15.0" layoutX="268.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.6" width="15.0" />
+                  <Label layoutX="293.0" layoutY="1.0" text="AVAILABLE">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d77373" height="15.0" layoutX="373.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.6" width="15.0" />
+                  <Label layoutX="394.0" layoutY="1.0" text="NOT AVAILABLE">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="127.0" layoutY="1.0" text="MODULE STATUS:">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="turnPanel" layoutY="30.0" prefHeight="140.0" prefWidth="600.0">
+         <children>
+            <TextField fx:id="email" layoutX="33.0" layoutY="26.0" prefHeight="25.0" prefWidth="250.0" />
+            <Label layoutX="35.0" layoutY="8.0" text="Email:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="317.0" layoutY="6.0" text="Password:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="password" layoutX="317.0" layoutY="26.0" prefHeight="25.0" prefWidth="250.0" />
+            <Label layoutX="36.0" layoutY="70.0" text="Procedure:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="procedure" layoutX="33.0" layoutY="88.0" prefHeight="24.0" prefWidth="250.0" />
+            <Button layoutX="494.0" layoutY="88.0" mnemonicParsing="false" onAction="#turn" style="-fx-background-color: blue;" text="Ask turn" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label fx:id="errorMsg1" layoutX="155.0" layoutY="50.0" opacity="0.0" prefHeight="20.0" prefWidth="280.0" text="USER NOT FOUND OR PASSWORD INCORRECT" textFill="RED" wrapText="true">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="316.0" layoutY="72.0" text="Duration:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="duration" layoutX="316.0" layoutY="90.0" prefHeight="25.0" prefWidth="76.0" />
+            <CheckBox fx:id="random" layoutX="399.0" layoutY="93.0" mnemonicParsing="false" onAction="#randomDuration" text="R" />
+            <Label fx:id="errorMsg2" layoutX="155.0" layoutY="116.0" opacity="0.0" prefHeight="20.0" prefWidth="280.0" text="SELECT A PROCEDURE" textFill="RED" wrapText="true">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
