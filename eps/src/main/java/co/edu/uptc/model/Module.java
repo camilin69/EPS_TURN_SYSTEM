@@ -38,36 +38,42 @@ public class Module implements Runnable{
     public void run() {
         Platform.runLater(() ->{
             ((Label) panel.getChildren().get(0)).setStyle("-fx-background-color: #d77373; -fx-border-color: black;");
+            ((Label) panel.getChildren().get(1)).setText("Turn: " + currentUser.getTurn());
             switch (procedure) {
                 case 0:
                     seeAppointments();
                     break;
                 case 1:
                     addAppointment();
+                    
                     break;
                 case 2:
                     deleteAppointment();
                     break;
             }
-        });
-        while (!available) {
-            try{
-                Thread.sleep(Duration.ofSeconds(seconds)); 
-             }catch(Exception e){
-                 e.printStackTrace();
-             }
             
-            if(procedure == 0){available = true;}
+        });
+        try{
+            Thread.sleep(Duration.ofSeconds(seconds)); 
+        }catch(Exception e){
+            e.printStackTrace();
         }
         
+
+        
+
         Platform.runLater(() -> {
             indeque.getItems().removeIf(i -> i.equals(currentUser.getFirstName() + " " + currentUser.getLastName()));
             currentUser.setRequest(false);
             moduleViewReset();
-            panel.getChildren().remove(1);
+            panel.getChildren().remove(2);
             ((Label) panel.getChildren().get(0)).setStyle("-fx-background-color: #a9ffab; -fx-border-color: black;");
-
         });
+        available = true;
+
+        
+        
+    
     }
 
     public void seeAppointments(){
@@ -83,29 +89,18 @@ public class Module implements Runnable{
 
     public void addAppointment(){
         moduleView();
-        Label l = new Label("Select a service:");
-        ComboBox<String> services = new ComboBox<>(FXCollections.observableArrayList(
-            "MedicineGeneral", "Ondontology", "Psichology", "Nutriology"));
-        Button select = new Button("Select");
-
-        moduleViewAD(l, services, select);
-        select.setOnAction(e -> modify(0, services.getSelectionModel().getSelectedItem()));
-        
+        Label l = new Label("ADDING THE APPOINTMENT: " + currentUser.getProcedureAppo() + " \nDURATION: " + seconds + " seconds");
+     
+        moduleViewAD(l);
+        modify(0, currentUser.getProcedureAppo());
     }
 
     public void deleteAppointment(){
         moduleView();
-        Label l = new Label("Select an appointment to delete:");
-        ComboBox<String> apps = new ComboBox<>(FXCollections.observableArrayList(
-            currentUser.getAppointments().stream()
-                .map(Appointment::getName)
-                .collect(Collectors.toList())
-        ));
-        Button select = new Button("Select");
-
-        moduleViewAD(l, apps, select);
-
-        select.setOnAction(e -> modify(1, apps.getSelectionModel().getSelectedItem()));
+        Label l = new Label("DELETING THE APPOINTMENT: " + currentUser.getProcedureAppo() + " \nDURATION: " + seconds + " seconds");
+        
+        moduleViewAD(l);
+        modify(1, currentUser.getProcedureAppo());
 
     }
 
@@ -119,40 +114,35 @@ public class Module implements Runnable{
 
     public void moduleView(){
         p = new AnchorPane();
-        p.setPrefSize(184, 194);
-        p.getChildren().add(new Label("In service with: " + currentUser.getFirstName() + " " + currentUser.getLastName()));
+        p.setPrefSize(195, 280);
+        Label l = new Label("In service with: " + currentUser.getFirstName() + " " + currentUser.getLastName());
+        l.setWrapText(true);
+        l.setPrefSize(184, 150);
+        l.setFont(new Font(30));
+        p.getChildren().add(l);
         sp = new ScrollPane(p);
         sp.getStylesheets().add(getClass().getResource("/co/edu/uptc/style.css").toExternalForm());
 
-        sp.setLayoutY(20);
-        sp.setPrefSize(200, 194);
+        sp.setLayoutY(70);
+        sp.setPrefSize(200, 280);
         p.setStyle("-fx-background-color: #d77373;");
         panel.getChildren().add(sp);
     }
 
-    public void moduleViewAD(Label l, ComboBox<String> b, Button select){
-        
-        l.setLayoutX(5);
-        l.setLayoutY(30);
+    public void moduleViewAD(Label l){
+        l.setFont(new Font(18));
+        l.setLayoutX(0);
+        l.setLayoutY(150);
+        l.setPrefSize(195, 130);
+        l.setWrapText(true);
+        l.setStyle("-fx-border-color: BLACK;");
 
-        b.setLayoutX(5);
-        b.setLayoutY(50);
-        b.setPrefSize(150, 20);
-
-        select.setPrefSize(80, 20);
-        select.setStyle("-fx-background-color: blue;");
-        select.setTextFill(Color.WHITE);
-        select.setLayoutX(65);
-        select.setLayoutY(100);
-        select.setCursor(Cursor.HAND);
-
-        p.getChildren().addAll(l, b, select);
+        p.getChildren().addAll(l);
 
     }
 
     private void modify(int op, String s){
         if(s != null){
-            available = true;
             EpsView.saveUsers();
             if(op == 0){currentUser.getAppointments().add(new Appointment(appointmentName(s)));}
             else if(op == 1){currentUser.getAppointments().removeIf(a -> a.getName().equals(s));}

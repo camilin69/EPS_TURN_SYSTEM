@@ -11,10 +11,13 @@ public class User {
     private String email;
     private String password;
     private boolean request;
-    private short procedure;
+    private short procedureNum;
+    private String procedureAppo;
     private int duration;
+    private int turn;
     
 
+   
     private List<Appointment> appointments;
 
     
@@ -82,13 +85,7 @@ public class User {
         this.request = request;
     }
 
-    public short getProcedure() {
-        return procedure;
-    }
-
-    public void setProcedure(short procedure) {
-        this.procedure = procedure;
-    }
+    
 
     public int getDuration() {
         return duration;
@@ -98,7 +95,30 @@ public class User {
         this.duration = duration;
     }
    
-    
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+
+    public short getProcedureNum() {
+        return procedureNum;
+    }
+
+    public String getProcedureAppo() {
+        return procedureAppo;
+    }
+
+    public void setProcedureNum(short procedureNum) {
+        this.procedureNum = procedureNum;
+    }
+
+    public void setProcedureAppo(String procedureAppo) {
+        this.procedureAppo = procedureAppo;
+    }
+
     
     
 

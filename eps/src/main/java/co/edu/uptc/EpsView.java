@@ -18,33 +18,21 @@ import com.google.gson.reflect.TypeToken;
 
 import co.edu.uptc.model.Module;
 import co.edu.uptc.model.User;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 
 public class EpsView {
 
-    @FXML
-    private TextField email;
-    @FXML
-    private PasswordField password;
-    @FXML
-    private TextField duration;
-    @FXML
-    private ComboBox<String> procedure;
 
 
     @FXML
@@ -58,11 +46,6 @@ public class EpsView {
 
     @FXML
     private AnchorPane turnPanel;
-
-    @FXML
-    private Label errorMsg1;
-    @FXML
-    private Label errorMsg2;
 
     @FXML
     private ComboBox<String> indeque;
@@ -83,14 +66,7 @@ public class EpsView {
    
 
     public void initialize(){
-        duration.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    duration.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
+        labels();
         users = new ArrayList<>();
         modules = new ArrayList<>();
         turns = FXCollections.observableArrayList();
@@ -102,8 +78,6 @@ public class EpsView {
 
         
         loadUsers();
-        ObservableList<String> p = FXCollections.observableArrayList("See Appointments", "Add Appointment", "Delete Appointment");
-        procedure.setItems(p);
 
         Thread t = new Thread(() -> {
             while(true){
@@ -113,7 +87,7 @@ public class EpsView {
                         for (Module m : modules) {
                             if(m.isAvailable()){    
                                 m.setCurrentUser(cu);
-                                m.setProcedure(cu.getProcedure());
+                                m.setProcedure(cu.getProcedureNum());
                                 m.setAvailable(false);
                                 m.setSeconds(cu.getDuration());
                                 new Thread(m).start();
@@ -136,7 +110,7 @@ public class EpsView {
         turns.addListener((ListChangeListener<User>) change -> {
             Platform.runLater(() -> {
                 ObservableList<String> userList = FXCollections.observableArrayList(
-                    turns.stream().map(u -> u.getFirstName() + " " + u.getLastName()).collect(Collectors.toList())
+                    turns.stream().map(u -> u.getFirstName() + " " + u.getLastName() + " | TURN: " + u.getTurn()).collect(Collectors.toList())
                 );
                 indeque.setItems(userList);
             });
@@ -144,46 +118,16 @@ public class EpsView {
     }
 
 
-    @FXML
+    @FXML   
     void turn(ActionEvent event) {
-        User cu = findUser();
-        if(cu != null){
-            if(!cu.isRequest()){
-                if(checkProcedure()){
-                    if(checkDuration(cu)){
-                        errorMsg1.setOpacity(0);
-                        errorMsg2.setOpacity(0);
-                        cu.setProcedure((short) procedure.getSelectionModel().getSelectedIndex());
-                        cu.setRequest(true);
-                        turns.add(cu);
-                    }else{
-                        errorView(3);
-                    }
-                }else{
-                    errorView(2);
-                }
-            }else{
-                errorView(1);
-            }
-        }else{
-            errorView(0);
-        }
-
-        
-        
+        users.forEach(u -> {
+            u.setRequest(true);
+            u.setDuration(new Random().nextInt(10) + 1);
+            turns.add(u);
+            u.setTurn(turns.size());
+        });
     }
 
-    @FXML
-    void randomDuration(ActionEvent e){
-        if(random.isSelected()){
-            random.setSelected(true);
-            duration.setDisable(true);
-        }else{
-            random.setSelected(false);
-            duration.setDisable(false);
-        
-        }
-    }
 
     public static void saveUsers(){
         try (FileWriter writer = new FileWriter("eps/src/main/resources/co/edu/uptc/users.json")) {
@@ -204,53 +148,28 @@ public class EpsView {
         }
     }
 
-    
-
-    private User findUser(){
-        Optional<User> user = users.stream().filter(u -> u.getEmail().equals(email.getText()) && u.getPassword().equals(password.getText())).findAny();
-        return user.isPresent() ? user.get(): null;
-    }
-
-    private boolean checkDuration(User cu){
-        if(duration.isDisable() && random.isSelected()){
-            cu.setDuration(new Random().nextInt(boundDuration) + 1);
-            return true;
-        }else if(!duration.getText().isBlank()){
-            cu.setDuration(Integer.parseInt(duration.getText()));
-            return true;
-        }else{
-            errorView(3);
-            return false;
-        }
-    }
-
-    private boolean checkProcedure(){
-        return procedure.getSelectionModel().getSelectedItem() != null ? true : false;
-    }
-
-    public void errorView(int error){
-        if(error == 0){
-            errorMsg1.setText("USER NOT FOUND OR PASSWORD INCORRECT");
-        }else if(error == 1){
-            errorMsg1.setText("USER ALREADY IN DEQUE OR MODULE");
-        }else if(error == 2){
-            errorMsg2.setText("SELECT A PROCEDURE");
-        }else if(error == 3){
-            errorMsg2.setText("ENTER A DURATION OF PROCEDURE");
-        }
-        if(error == 0 || error ==1){
-            errorMsg1.setOpacity(1);
-            Timeline t = new Timeline(new KeyFrame(javafx.util.Duration.millis(300), f -> {errorMsg1.setOpacity(errorMsg1.getOpacity() - 0.1d);}));
-            t.setCycleCount(10);
-            t.play();
-        }else if(error == 2 || error == 3){
-            errorMsg2.setOpacity(1);
-            Timeline t = new Timeline(new KeyFrame(javafx.util.Duration.millis(300), f -> {errorMsg2.setOpacity(errorMsg2.getOpacity() - 0.1d);}));
-            t.setCycleCount(10);
-            t.play();
+    public void labels(){
+        try {
+            Font digitalFont = Font.loadFont(getClass().getResourceAsStream("/co/edu/uptc/ds_digital/DS-DIGIT.TTF"),46);
+            if (digitalFont == null) {
+                throw new RuntimeException("Font not found");
+            }
+            ((Label) m1.getChildren().get(1)).setFont(digitalFont);
+            ((Label) m2.getChildren().get(1)).setFont(digitalFont);
+            ((Label) m3.getChildren().get(1)).setFont(digitalFont);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         
+
     }
+
+
+
+    
+
+        
+    
 
 
 

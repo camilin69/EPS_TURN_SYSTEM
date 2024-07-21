@@ -1,119 +1,90 @@
 [
   {
     "id": 1,
-    "firstName": "Camilo",
-    "lastName": "Merchan",
+    "firstName": "USER",
+    "lastName": "1",
     "email": "1",
     "password": "1",
     "request": false,
-    "procedure": 0,
-    "duration": 10,
+    "procedureNum": 2,
+    "procedureAppo": "General",
+    "duration": 7,
+    "turn": 1,
     "appointments": [
       {
-        "name": "Ondontology"
-      },
-      {
-        "name": "MedicineGeneral"
-      },
-      {
-        "name": "Psichology"
+        "name": "General 2"
       }
     ]
   },
   {
-    "id": 2,
-    "firstName": "Bryan",
-    "lastName": "PAtino",
-    "email": "2",
+    "id": 1,
+    "firstName": "USER",
+    "lastName": "2",
+    "email": "1",
+    "password": "1",
+    "request": true,
+    "procedureNum": 2,
+    "procedureAppo": "General",
+    "duration": 8,
+    "turn": 2,
+    "appointments": []
+  },
+  {
+    "id": 1,
+    "firstName": "USER",
+    "lastName": "3",
+    "email": "1",
     "password": "1",
     "request": false,
-    "procedure": 1,
-    "duration": 1,
+    "procedureNum": 1,
+    "procedureAppo": "General",
+    "duration": 2,
+    "turn": 3,
     "appointments": [
       {
-        "name": "Odontology"
+        "name": "General"
       },
       {
-        "name": "Psichology"
+        "name": "General 2"
       },
       {
-        "name": "Nutriology"
+        "name": "General 3"
+      },
+      {
+        "name": "General 4"
+      },
+      {
+        "name": "General 5"
+      },
+      {
+        "name": "General 6"
       }
     ]
   },
   {
-    "id": 3,
-    "firstName": "Juan",
-    "lastName": "Vargas",
-    "email": "3",
+    "id": 1,
+    "firstName": "USER",
+    "lastName": "4",
+    "email": "1",
     "password": "1",
     "request": false,
-    "procedure": 1,
+    "procedureNum": 2,
+    "procedureAppo": "General",
     "duration": 1,
-    "appointments": [
-      {
-        "name": "Psichology"
-      },
-      {
-        "name": "Nutriology"
-      },
-      {
-        "name": "Nutriology 2"
-      }
-    ]
+    "turn": 4,
+    "appointments": []
   },
   {
-    "id": 4,
-    "firstName": "Maria",
-    "lastName": "Castiblanco",
-    "email": "4",
+    "id": 1,
+    "firstName": "USER",
+    "lastName": "5",
+    "email": "1",
     "password": "1",
-    "request": false,
-    "procedure": 1,
-    "duration": 1,
-    "appointments": [
-      {
-        "name": "Psichology"
-      },
-      {
-        "name": "MedicineGeneral"
-      }
-    ]
-  },
-  {
-    "id": 5,
-    "firstName": "Alfonso",
-    "lastName": "Vega",
-    "email": "5",
-    "password": "1",
-    "request": false,
-    "procedure": 1,
-    "duration": 1,
-    "appointments": [
-      {
-        "name": "Psichology"
-      },
-      {
-        "name": "Ondontology"
-      }
-    ]
-  },
-  {
-    "id": 6,
-    "firstName": "Mariana",
-    "lastName": "Smith",
-    "email": "6",
-    "password": "1",
-    "request": false,
-    "procedure": 1,
-    "duration": 1,
-    "appointments": [
-      {
-        "name": "Psichology"
-      },
-      {
-        "name": "Nutriology"
-      }
-    ]
+    "request": true,
+    "procedureNum": 2,
+    "procedureAppo": "General",
+    "duration": 8,
+    "turn": 5,
+    "appointments": []
   }
 ]
